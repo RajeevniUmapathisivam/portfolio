@@ -46,6 +46,15 @@ export const IconPhone = () => (
 );
 
 export const AccordionIcon = ({ type }) => {
-  const icons = { code: "</>", server: "⚙", database: "🗄", tools: "🛠" };
+  const icons = {
+    programming: "</>",
+    frontend: "⚛",
+    code: "</>",
+    server: "⚙",
+    database: "🗄",
+    tools: "🛠",
+    soft: "🤝",
+    cert: "📜",
+  };
   return <span className="accordion-icon">{icons[type] || "•"}</span>;
 };

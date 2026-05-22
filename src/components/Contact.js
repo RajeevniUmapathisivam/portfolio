@@ -28,7 +28,7 @@ export default function Contact() {
           </div>
           <div className="contact-info-item">
             <IconPhone />
-            <a href={`tel:${SITE.phone}`}>{SITE.phone}</a>
+                <a href={`tel:${SITE.phone.replace(/\s/g, "")}`}>{SITE.phone}</a>
           </div>
           <div className="contact-info-item">
             <IconMail />

@@ -3,13 +3,16 @@ export const SITE = {
   shortName: "Rajeevni",
   role: "Full Stack Developer",
   tagline:
-    "BSc IT undergraduate building full-stack apps with React, Node.js, and MongoDB — 4+ shipped university and personal projects.",
+    "BSc IT undergraduate (3rd year) at University of Vavuniya — motivated developer with CGPA 3.37, strong in React, Node.js, and real-world academic projects.",
+  aboutSummary:
+    "Motivated IT undergraduate with a strong foundation in programming and web development, eager to gain practical industry experience. Quick learner with strong problem-solving skills and a passion for working on real-world projects in collaborative environments.",
   email: "urajeevni@gmail.com",
-  phone: "0778280888",
-  location: "Sri Lanka",
+  phone: "+94 778 280 888",
+  location: "Trincomalee, Sri Lanka",
   linkedin: "https://www.linkedin.com/in/rajeevni-umapathisivam",
   github: "https://github.com/RajeevniUmapathisivam",
   liveUrl: "https://RajeevniUmapathisivam.github.io/portfolio",
+  cvPdf: "cv.pdf",
 };
 
 export const NAV_LINKS = [
@@ -22,32 +25,45 @@ export const NAV_LINKS = [
 ];
 
 export const ABOUT_STATS = [
-  { value: "3+", label: "Years learning & building" },
-  { value: "4+", label: "Featured projects" },
-  { value: "12+", label: "Technologies used" },
+  { value: "3.37", label: "CGPA (out of 4.0)" },
+  { value: "4", label: "Academic projects" },
+  { value: "2", label: "Certifications" },
 ];
 
+/** Matches TECHNICAL SKILLS + SOFT SKILLS + CERTIFICATIONS from CV */
 export const skillCategories = [
   {
-    id: "frontend",
-    label: "Frontend Development",
+    id: "programming",
+    label: "Programming",
     icon: "code",
     skills: [
-      { name: "React", level: "Strong" },
       { name: "JavaScript", level: "Strong" },
-      { name: "HTML & CSS", level: "Strong" },
+      { name: "Java", level: "Strong" },
+      { name: "C / C++", level: "Proficient" },
+      { name: "C#", level: "Proficient" },
+      { name: "PHP", level: "Proficient" },
+    ],
+  },
+  {
+    id: "frontend",
+    label: "Frontend",
+    icon: "code",
+    skills: [
+      { name: "ReactJS", level: "Strong" },
+      { name: "React Native", level: "Proficient" },
       { name: "Tailwind CSS", level: "Proficient" },
+      { name: "HTML & CSS", level: "Strong" },
     ],
   },
   {
     id: "backend",
-    label: "Backend Development",
+    label: "Backend",
     icon: "server",
     skills: [
-      { name: "Node.js", level: "Proficient" },
-      { name: "Express", level: "Proficient" },
+      { name: "Node.js", level: "Strong" },
+      { name: "Express.js", level: "Strong" },
       { name: "REST APIs", level: "Strong" },
-      { name: "Java", level: "Proficient" },
+      { name: "JWT Authentication", level: "Proficient" },
     ],
   },
   {
@@ -55,20 +71,44 @@ export const skillCategories = [
     label: "Databases",
     icon: "database",
     skills: [
-      { name: "MongoDB", level: "Proficient" },
+      { name: "MongoDB", level: "Strong" },
       { name: "MySQL", level: "Proficient" },
-      { name: "Firebase", level: "Familiar" },
+      { name: "Firebase", level: "Proficient" },
     ],
   },
   {
     id: "tools",
-    label: "Tools & DevOps",
+    label: "Tools",
     icon: "tools",
     skills: [
-      { name: "Git & GitHub", level: "Strong" },
       { name: "VS Code", level: "Strong" },
-      { name: "Postman", level: "Proficient" },
-      { name: "Figma", level: "Familiar" },
+      { name: "Visual Studio", level: "Proficient" },
+      { name: "GitHub", level: "Strong" },
+      { name: "Linux", level: "Proficient" },
+      { name: "Shell Scripting", level: "Proficient" },
+    ],
+  },
+  {
+    id: "soft",
+    label: "Soft Skills",
+    icon: "soft",
+    listOnly: true,
+    skills: [
+      { name: "Leadership" },
+      { name: "Communication" },
+      { name: "Teamwork" },
+      { name: "Critical Thinking" },
+      { name: "Problem Solving" },
+    ],
+  },
+  {
+    id: "certifications",
+    label: "Certifications",
+    icon: "cert",
+    listOnly: true,
+    skills: [
+      { name: "Cisco — JavaScript Essentials 1" },
+      { name: "Sololearn — SQL (Intro & Intermediate)" },
     ],
   },
 ];
@@ -77,78 +117,94 @@ export const LEVEL_WIDTH = { Strong: 90, Proficient: 75, Familiar: 55 };
 
 export const education = [
   {
-    title: "BSc (Hons) Information Technology",
-    org: "Undergraduate degree programme · Sri Lanka",
-    date: "2022 — Present",
+    title: "BSc. in Information Technology",
+    org: "University of Vavuniya, Sri Lanka · CGPA 3.37 / 4.0",
+    date: "Sept 2023 — Present",
+    detail: "3rd Year · OOP, DSA, OS, Networks, Software Engineering, DB Systems",
   },
   {
-    title: "Advanced Level (Physical Science)",
+    title: "G.C.E. Advanced Level — Physical Science",
     org: "Secondary education",
-    date: "2018 — 2020",
+    date: "2021",
+  },
+  {
+    title: "G.C.E. Ordinary Level",
+    org: "7A, 2B (Mathematics, ICT, English Literature)",
+    date: "2018",
   },
 ];
 
 export const work = [
   {
-    title: "Full Stack Developer — Personal Projects",
-    org: "React, Node.js, MongoDB applications",
-    date: "2023 — Present",
+    title: "RentorX — E-Commerce (IT3232)",
+    org: "Web rental marketplace · Group project · Ongoing",
+    date: "Ongoing",
   },
   {
-    title: "Course Project Lead — EduEnrollPro",
-    org: "University course registration system",
-    date: "2024 — 2025",
+    title: "Online Vehicle Gatepass System (IT3162)",
+    org: "Gate pass & vehicle tracking · Group project",
+    date: "Aug 2025 — Jan 2026",
   },
   {
-    title: "Web Services & APIs — IT2234",
-    org: "RESTful services coursework (GitHub)",
-    date: "2025",
+    title: "Movie App (IT3133)",
+    org: "Movie browse, auth, watchlist · Individual project",
+    date: "Sept 2025 — Nov 2025",
   },
+  {
+    title: "Course Registration System (IT2212)",
+    org: "EduEnrollPro · MIS group project",
+    date: "Apr 2025 — June 2025",
+  },
+];
+
+export const achievements = [
+  "IEEE Xtreme 18.0 — Participant (2024)",
+  "AIESEC Member (2025)",
 ];
 
 export const projects = [
   {
     id: 1,
-    title: "EduEnrollPro — Course Registration Portal",
+    title: "RentorX — Rental Marketplace",
     summary:
-      "University course registration system with analytics dashboard, capacity management, and semester planning.",
-    meta: "Full Stack · React, Node.js, Chart.js, MySQL",
-    repo: "https://github.com/RajeevniUmapathisivam/EduEnrollPro",
+      "IT3232 E-Commerce group project: property/equipment rental with map-based search, bookings dashboard, and Leaflet-powered nearby view.",
+    meta: "React · Tailwind CSS · Leaflet · Vite · IT3232",
+    repo: "https://github.com/RajeevniUmapathisivam",
     demo: null,
     image:
-      "https://opengraph.githubassets.com/1/RajeevniUmapathisivam/EduEnrollPro",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
   },
   {
     id: 2,
-    title: "Movie Discovery App",
+    title: "Online Vehicle Gatepass Management System",
     summary:
-      "Movie platform with authentication, personal watchlists, ratings, and TMDB API integration.",
-    meta: "Frontend · React, TypeScript, JWT",
+      "IT3162 group project: digital gate pass requests, vehicle entry/exit tracking, admin & security dashboards, and approval workflows.",
+    meta: "React · Node.js · Express · MongoDB · REST API",
+    repo: "https://github.com/RajeevniUmapathisivam",
+    demo: null,
+    image:
+      "https://images.unsplash.com/photo-1449965408869-eaa3f725e40f?w=400&h=300&fit=crop",
+  },
+  {
+    id: 3,
+    title: "Movie App",
+    summary:
+      "IT3133 individual project: browse and search movies, ratings, trailers, JWT auth, favorites/watchlist, and responsive UI.",
+    meta: "React · Node.js · MongoDB · JWT · REST APIs",
     repo: "https://github.com/RajeevniUmapathisivam/Movie-app",
     demo: null,
     image:
       "https://opengraph.githubassets.com/1/RajeevniUmapathisivam/Movie-app",
   },
   {
-    id: 3,
-    title: "Web Services Application — IT2234",
+    id: 4,
+    title: "Course Registration System — EduEnrollPro",
     summary:
-      "Web services coursework covering REST APIs, backend integration, and structured service design.",
-    meta: "Backend · Web Services · IT2234",
-    repo: "https://github.com/RajeevniUmapathisivam/WebService-IT2234",
+      "IT2212 MIS group project: semester course registration, admin approval, analytics, notifications, and audit logs.",
+    meta: "React · Node.js · MongoDB · JWT · Chart.js",
+    repo: "https://github.com/RajeevniUmapathisivam/EduEnrollPro",
     demo: null,
     image:
-      "https://opengraph.githubassets.com/1/RajeevniUmapathisivam/WebService-IT2234",
-  },
-  {
-    id: 4,
-    title: "Developer Portfolio",
-    summary:
-      "Personal portfolio with responsive layout, dark mode, project showcase, and GitHub Pages deployment.",
-    meta: "Frontend · React, CSS, GitHub Pages",
-    repo: "https://github.com/RajeevniUmapathisivam/portfolio",
-    demo: "https://RajeevniUmapathisivam.github.io/portfolio",
-    image:
-      "https://opengraph.githubassets.com/1/RajeevniUmapathisivam/portfolio",
+      "https://opengraph.githubassets.com/1/RajeevniUmapathisivam/EduEnrollPro",
   },
 ];

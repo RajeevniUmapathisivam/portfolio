@@ -32,9 +32,10 @@ export default function Experience() {
           {timeline.map((item, i) => (
             <div key={`${item.title}-${i}`} className="timeline-item">
               <span className="timeline-dot" />
-              <h3 className="timeline-title">{item.title}</h3>
-              <p className="timeline-org">{item.org}</p>
-              <p className="timeline-date">{item.date}</p>
+                  <h3 className="timeline-title">{item.title}</h3>
+                  <p className="timeline-org">{item.org}</p>
+                  {item.detail && <p className="timeline-detail">{item.detail}</p>}
+                  <p className="timeline-date">{item.date}</p>
             </div>
           ))}
         </div>

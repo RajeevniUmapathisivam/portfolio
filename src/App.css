@@ -399,8 +399,60 @@
 /* ── Skills accordion ── */
 .skills-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem;
+}
+
+.skill-list-plain {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-list-plain li {
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-list-plain li:last-child {
+  border-bottom: none;
+}
+
+.skill-list-plain li::before {
+  content: "✓ ";
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.about-achievements {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+}
+
+.about-achievements li {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  padding: 0.35rem 0;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.about-achievements li::before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+  font-size: 0.75rem;
+}
+
+.timeline-detail {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  margin-top: 0.25rem;
+  line-height: 1.5;
 }
 
 .accordion {
@@ -986,6 +1038,10 @@
 }
 
 @media (max-width: 600px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
   .form-row {
     grid-template-columns: 1fr;
   }
