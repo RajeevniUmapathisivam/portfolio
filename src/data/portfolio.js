@@ -13,6 +13,8 @@ export const SITE = {
   github: "https://github.com/RajeevniUmapathisivam",
   liveUrl: "https://RajeevniUmapathisivam.github.io/portfolio",
   cvPdf: "cv.pdf",
+  profileImage: "profile.jpg",
+  aboutImage: "about.jpg",
 };
 
 export const NAV_LINKS = [

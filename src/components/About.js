@@ -1,7 +1,7 @@
 import { ABOUT_STATS, SITE, achievements } from "../data/portfolio";
 import { IconDownload } from "./Icons";
 
-const PROFILE_IMAGE = `${process.env.PUBLIC_URL}/profile.jpg`;
+const ABOUT_IMAGE = `${process.env.PUBLIC_URL}/${SITE.aboutImage}`;
 const CV_URL = `${process.env.PUBLIC_URL}/${SITE.cvPdf}`;
 
 export default function About() {
@@ -14,7 +14,11 @@ export default function About() {
         </div>
         <div className="about-grid">
           <div className="about-image-wrap">
-            <img src={PROFILE_IMAGE} alt={`${SITE.name} portrait`} loading="lazy" />
+            <img
+              src={ABOUT_IMAGE}
+              alt="Professional developer workspace"
+              loading="lazy"
+            />
           </div>
           <div>
             <p className="about-text">{SITE.aboutSummary}</p>

@@ -1,7 +1,7 @@
 import { SITE } from "../data/portfolio";
 import { IconLinkedIn, IconGitHub, IconMail, IconSend } from "./Icons";
 
-const PROFILE_IMAGE = `${process.env.PUBLIC_URL}/profile.jpg`;
+const PROFILE_IMAGE = `${process.env.PUBLIC_URL}/${SITE.profileImage}`;
 
 export default function Hero() {
   return (
