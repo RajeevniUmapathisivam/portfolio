@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SITE } from "../data/portfolio";
-import { IconLocation, IconPhone, IconMail, IconSend } from "./Icons";
+import { IconSend } from "./Icons";
 
 const FORM_ACTION = "https://formsubmit.co/urajeevni@gmail.com";
 const REDIRECT_URL = `${SITE.liveUrl}/#contact?sent=1`;
@@ -9,60 +9,36 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    if (window.location.hash.includes("sent=1")) {
-      setSent(true);
-    }
+    if (window.location.hash.includes("sent=1")) setSent(true);
   }, []);
 
   return (
-    <section id="contact" className="section">
-      <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Contact</h2>
-          <p className="section-subtitle">Get in touch</p>
+    <section id="contact" className="section section-alt">
+      <div className="container contact-wrap">
+        <div className="section-header section-header-left">
+          <span className="section-label">Get in touch</span>
+          <h2 className="section-title">Contact Me</h2>
+          <p className="contact-lead">Write me about your project</p>
         </div>
-        <div className="contact-info-row">
-          <div className="contact-info-item">
-            <IconLocation />
-            <span>{SITE.location}</span>
-          </div>
-          <div className="contact-info-item">
-            <IconPhone />
-                <a href={`tel:${SITE.phone.replace(/\s/g, "")}`}>{SITE.phone}</a>
-          </div>
-          <div className="contact-info-item">
-            <IconMail />
-            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-          </div>
-        </div>
-        <form
-          className="contact-form"
-          action={FORM_ACTION}
-          method="POST"
-        >
+        <form className="contact-form" action={FORM_ACTION} method="POST">
           <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_subject" value="Portfolio contact — Rajeevni" />
+          <input type="hidden" name="_subject" value="Portfolio — New project inquiry" />
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_next" value={REDIRECT_URL} />
           <div className="form-row">
-            <input type="text" name="firstName" placeholder="First Name" required />
-            <input type="text" name="lastName" placeholder="Last Name" required />
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
           </div>
-          <input type="email" name="email" placeholder="Email" required className="form-full" />
-          <textarea name="message" placeholder="Message" required />
-          <div className="form-submit-wrap">
-            <button type="submit" className="btn-teal">
-              Send Message <IconSend />
-            </button>
-          </div>
+          <input type="text" name="project" placeholder="Project Type" className="form-full" />
+          <textarea name="message" placeholder="Tell me about your project..." required />
+          <button type="submit" className="btn-primary btn-block">
+            Send Message <IconSend />
+          </button>
           {sent && (
             <p className="form-success" role="status">
               Thank you! Your message was sent successfully.
             </p>
           )}
-          <p className="form-hint">
-            Powered by FormSubmit — messages go directly to {SITE.email}.
-          </p>
         </form>
       </div>
     </section>

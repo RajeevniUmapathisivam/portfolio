@@ -3,7 +3,6 @@ import { NAV_LINKS, SITE } from "../data/portfolio";
 
 export default function Navbar({ theme, onToggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -20,9 +19,7 @@ export default function Navbar({ theme, onToggleTheme }) {
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
         >
-          <span />
-          <span />
-          <span />
+          <span /><span /><span />
         </button>
 
         <nav className={`nav-menu ${menuOpen ? "open" : ""}`} aria-label="Main">
@@ -41,9 +38,9 @@ export default function Navbar({ theme, onToggleTheme }) {
           type="button"
           className="theme-toggle"
           onClick={onToggleTheme}
-          aria-label="Toggle dark mode"
+          aria-label="Toggle theme"
         >
-          {theme === "light" ? "🌙" : "☀️"}
+          {theme === "dark" ? "☀️" : "🌙"}
         </button>
       </div>
     </header>

@@ -1,11 +1,12 @@
 import { SITE } from "../data/portfolio";
-import { IconLinkedIn, IconGitHub, IconMail, IconSend } from "./Icons";
+import { IconLinkedIn, IconGitHub, IconMail, IconDownload } from "./Icons";
 
 const PROFILE_IMAGE = `${process.env.PUBLIC_URL}/${SITE.profileImage}`;
+const CV_URL = `${process.env.PUBLIC_URL}/${SITE.cvPdf}`;
 
 export default function Hero() {
   return (
-    <>
+    <section id="home" className="hero">
       <aside className="hero-social" aria-label="Social links">
         <a href={SITE.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
           <IconLinkedIn />
@@ -18,31 +19,35 @@ export default function Hero() {
         </a>
       </aside>
 
-      <section id="home" className="hero">
-        <div className="container hero-grid">
-          <div>
-            <h1 className="hero-name">{SITE.name}</h1>
-            <p className="hero-role">{SITE.role}</p>
-            <p className="hero-desc">{SITE.tagline}</p>
-            <a href="#contact" className="btn-teal">
-              Contact Me <IconSend />
-            </a>
-          </div>
-          <div className="hero-visual">
-            <div className="hero-blob">
-              <div className="hero-blob-bg" />
-              <img
-                className="hero-photo"
-                src={PROFILE_IMAGE}
-                alt={SITE.name}
-                width={400}
-                height={400}
-                loading="eager"
-              />
-            </div>
+      <div className="hero-center">
+        <p className="hero-greeting">
+          Hello, I&apos;m <span className="text-purple">{SITE.shortName}</span>
+        </p>
+        <h1 className="hero-name">{SITE.role}</h1>
+        <p className="hero-desc">{SITE.tagline}</p>
+
+        <div className="hero-btns">
+          <a href={CV_URL} className="btn-outline" download="Rajeevni-CV.pdf">
+            <IconDownload /> Download CV
+          </a>
+          <a href="#about" className="btn-primary">
+            About me
+          </a>
+        </div>
+
+        <div className="hero-arch-wrap">
+          <div className="hero-arch-glow" />
+          <div className="hero-arch">
+            <img src={PROFILE_IMAGE} alt={SITE.name} className="hero-arch-img" />
           </div>
         </div>
-      </section>
-    </>
+      </div>
+
+      <a href="#about" className="hero-scroll" aria-label="Scroll down">
+        <span className="hero-scroll-icon">🖱️</span>
+        <span>Scroll Down</span>
+        <span className="hero-scroll-line" />
+      </a>
+    </section>
   );
 }
