@@ -1,839 +1,540 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
 /* ─────────── DATA ─────────── */
-const projects = [
-  {
-    id: 1,
-    title: "RentorX",
-    desc: "A full-featured rental marketplace with real-time map-based search, advanced filtering, and an owner dashboard for listing management.",
-    tech: ["React", "Tailwind", "Leaflet", "Node.js"],
-    category: "Full Stack",
-    color: "#6366f1",
-    emoji: "🏠",
-    github: "https://github.com/RajeevniUmapathisivam",
-    demo: "#",
-  },
-  {
-    id: 2,
-    title: "Vehicle Gate Pass",
-    desc: "Smart vehicle entry/exit tracking system with role-based approval workflows, real-time status updates, and audit logs.",
-    tech: ["React", "Node.js", "MongoDB", "Express"],
-    category: "Full Stack",
-    color: "#10b981",
-    emoji: "🚗",
-    github: "https://github.com/RajeevniUmapathisivam",
-    demo: "#",
-  },
-  {
-    id: 3,
-    title: "Movie App",
-    desc: "Movie discovery platform with JWT authentication, personal watchlists, ratings, and TMDB API integration.",
-    tech: ["React", "Node.js", "MongoDB", "JWT"],
-    category: "Frontend",
-    color: "#f59e0b",
-    emoji: "🎬",
-    github: "https://github.com/RajeevniUmapathisivam",
-    demo: "#",
-  },
-  {
-    id: 4,
-    title: "Course Registration",
-    desc: "University course registration portal with analytics dashboard, student capacity management, and semester planning tools.",
-    tech: ["React", "Node.js", "Chart.js", "MySQL"],
-    category: "Full Stack",
-    color: "#ec4899",
-    emoji: "🎓",
-    github: "https://github.com/RajeevniUmapathisivam",
-    demo: "#",
-  },
+const NAV_LINKS = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
 ];
-
-const FILTERS = ["All", "Full Stack", "Frontend"];
 
 const skillCategories = [
   {
-    label: "Frontend",
-    icon: "🎨",
-    color: "#6366f1",
+    id: "frontend",
+    label: "Frontend Development",
+    icon: "code",
+    defaultOpen: true,
     skills: [
-      { name: "React",      icon: "⚛️", level: 88 },
-      { name: "JavaScript", icon: "🟨", level: 85 },
-      { name: "HTML & CSS", icon: "🌐", level: 92 },
-      { name: "Tailwind",   icon: "💨", level: 80 },
+      { name: "React", level: 88 },
+      { name: "JavaScript", level: 85 },
+      { name: "HTML & CSS", level: 92 },
     ],
   },
   {
-    label: "Backend",
-    icon: "⚙️",
-    color: "#10b981",
+    id: "backend",
+    label: "Backend Development",
+    icon: "server",
     skills: [
-      { name: "Node.js",  icon: "🟩", level: 82 },
-      { name: "Express", icon: "🚂", level: 78 },
-      { name: "Java",    icon: "☕", level: 75 },
-      { name: "REST API",icon: "🔗", level: 83 },
+      { name: "Node.js", level: 82 },
+      { name: "Express", level: 78 },
+      { name: "REST APIs", level: 83 },
     ],
   },
   {
-    label: "Database",
-    icon: "🗄️",
-    color: "#f59e0b",
+    id: "database",
+    label: "Databases",
+    icon: "database",
     skills: [
-      { name: "MongoDB", icon: "🍃", level: 80 },
-      { name: "MySQL",   icon: "🐬", level: 72 },
-      { name: "Firebase",icon: "🔥", level: 65 },
+      { name: "MongoDB", level: 80 },
+      { name: "MySQL", level: 72 },
+      { name: "Firebase", level: 65 },
     ],
   },
   {
+    id: "tools",
     label: "Tools & DevOps",
-    icon: "🛠️",
-    color: "#ec4899",
+    icon: "tools",
     skills: [
-      { name: "Git & GitHub", icon: "🐙", level: 86 },
-      { name: "VS Code",      icon: "💻", level: 90 },
-      { name: "Postman",      icon: "📮", level: 78 },
-      { name: "Figma",        icon: "🎭", level: 60 },
+      { name: "Git & GitHub", level: 86 },
+      { name: "VS Code", level: 90 },
+      { name: "Postman", level: 78 },
     ],
   },
 ];
 
-/* ─────────── COMPONENT ─────────── */
-export default function App() {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [hoveredCard, setHoveredCard] = useState(null);
+const education = [
+  { title: "BSc Information Technology", org: "Undergraduate Programme", date: "2022 — Present" },
+  { title: "Diploma in IT", org: "Technical Institute", date: "2020 — 2022" },
+  { title: "Advanced Level", org: "Secondary Education", date: "2018 — 2020" },
+];
 
-  const filtered =
-    activeFilter === "All"
-      ? projects
-      : projects.filter((p) => p.category === activeFilter);
+const work = [
+  { title: "Full Stack Developer", org: "Personal Projects & Freelance", date: "2023 — Present" },
+  { title: "Web Development Intern", org: "Tech Startup", date: "2023" },
+  { title: "University Project Lead", org: "Course Registration System", date: "2024" },
+];
+
+const projects = [
+  {
+    id: 1,
+    title: "RentorX — Rental Marketplace",
+    meta: "Full Stack · React, Node.js, Leaflet",
+    emoji: "🏠",
+    link: "https://github.com/RajeevniUmapathisivam",
+  },
+  {
+    id: 2,
+    title: "Vehicle Gate Pass System",
+    meta: "Full Stack · React, MongoDB, Express",
+    emoji: "🚗",
+    link: "https://github.com/RajeevniUmapathisivam",
+  },
+  {
+    id: 3,
+    title: "Movie Discovery App",
+    meta: "Frontend · React, JWT, TMDB API",
+    emoji: "🎬",
+    link: "https://github.com/RajeevniUmapathisivam",
+  },
+  {
+    id: 4,
+    title: "Course Registration Portal",
+    meta: "Full Stack · React, Chart.js, MySQL",
+    emoji: "🎓",
+    link: "https://github.com/RajeevniUmapathisivam",
+  },
+];
+
+/* ─────────── ICONS ─────────── */
+const IconLinkedIn = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  </svg>
+);
+
+const IconGitHub = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+  </svg>
+);
+
+const IconMail = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <polyline points="22,6 12,13 2,6" />
+  </svg>
+);
+
+const IconSend = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <line x1="22" y1="2" x2="11" y2="13" />
+    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+  </svg>
+);
+
+const IconDownload = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+    <polyline points="7 10 12 15 17 10" />
+    <line x1="12" y1="15" x2="12" y2="3" />
+  </svg>
+);
+
+const IconLocation = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
+const IconPhone = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+  </svg>
+);
+
+const AccordionIcon = ({ type }) => {
+  const icons = {
+    code: "</>",
+    server: "⚙",
+    database: "🗄",
+    tools: "🛠",
+  };
+  return <span className="accordion-icon">{icons[type] || "•"}</span>;
+};
+
+/* ─────────── MAIN ─────────── */
+export default function App() {
+  const [theme, setTheme] = useState("light");
+  const [openSkill, setOpenSkill] = useState("frontend");
+  const [expTab, setExpTab] = useState("education");
+  const [projectIndex, setProjectIndex] = useState(0);
+  const [formSent, setFormSent] = useState(false);
+  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", message: "" });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const subject = encodeURIComponent(`Portfolio contact from ${form.firstName} ${form.lastName}`);
+    const body = encodeURIComponent(
+      `Name: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\n\n${form.message}`
+    );
+    window.location.href = `mailto:urajeevni@gmail.com?subject=${subject}&body=${body}`;
+    setFormSent(true);
+    setForm({ firstName: "", lastName: "", email: "", message: "" });
+  };
+
+  const timeline = expTab === "education" ? education : work;
+  const currentProject = projects[projectIndex];
 
   return (
     <>
-      {/* Google Font */}
       <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet"
       />
 
-      <div style={styles.page}>
-        {/* ── NAVBAR ── */}
-        <nav style={styles.nav}>
-          <h3 style={styles.logo}>
-            <span style={styles.logoAccent}>R</span>ajeevni.dev
-          </h3>
-          <div style={styles.navLinks}>
-            {["About", "Skills", "Projects", "Contact"].map((link) => (
-              <a key={link} href={`#${link.toLowerCase()}`} style={styles.navLink}>
-                {link}
-              </a>
-            ))}
-          </div>
-        </nav>
-
-        {/* ── HERO ── */}
-        <section style={styles.hero}>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-          >
-            <div style={styles.avatarWrapper}>
-              <div style={styles.avatarRing} />
-              <img
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rajeevni&backgroundColor=b6e3f4"
-                alt="Rajeevni profile"
-                style={styles.avatar}
-              />
-            </div>
-
-            <motion.h1
-              style={styles.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-            >
-              Rajeevni Umapathisivam
-            </motion.h1>
-
-            <motion.p
-              style={styles.subtitle}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              BSc IT Undergraduate &nbsp;·&nbsp; Full Stack Developer
-            </motion.p>
-
-            <motion.p
-              style={styles.desc}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.65 }}
-            >
-              Passionate about building scalable web applications, modern UI
-              systems, and solving real-world problems with clean code.
-            </motion.p>
-
-            <motion.div
-              style={styles.buttons}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-            >
-              <a href="#projects" style={styles.btnPrimary}>
-                View Projects
-              </a>
-              <a href="/cv.pdf" style={styles.btnSecondary}>
-                Download CV
-              </a>
-            </motion.div>
-          </motion.div>
-
-          {/* floating orbs */}
-          <div style={{ ...styles.orb, top: "15%", left: "10%", background: "radial-gradient(circle, #6366f155, transparent)" }} />
-          <div style={{ ...styles.orb, top: "60%", right: "8%", width: 250, height: 250, background: "radial-gradient(circle, #10b98133, transparent)" }} />
-        </section>
-
-        {/* ── ABOUT ── */}
-        <section id="about" style={styles.section}>
-          <SectionHeader label="about" title="About Me" />
-          <motion.p
-            style={styles.aboutText}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            I am an enthusiastic IT undergraduate focused on full-stack
-            development, system design, and building real-world scalable
-            applications. I love turning complex problems into elegant,
-            user-friendly experiences.
-          </motion.p>
-        </section>
-
-        {/* ── SKILLS ── */}
-        <section id="skills" style={styles.section}>
-          <SectionHeader label="skills" title="Technical Skills" />
-          <div style={styles.skillCategories}>
-            {skillCategories.map((cat, ci) => (
-              <motion.div
-                key={cat.label}
-                style={{ ...styles.skillCatCard, borderColor: cat.color + "33" }}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: ci * 0.12, duration: 0.5 }}
-              >
-                {/* Category header */}
-                <div style={styles.catHeader}>
-                  <span style={{ ...styles.catIcon, background: cat.color + "22", color: cat.color }}>
-                    {cat.icon}
-                  </span>
-                  <span style={{ ...styles.catLabel, color: cat.color }}>{cat.label}</span>
-                </div>
-
-                {/* Skill bars */}
-                <div style={styles.skillList}>
-                  {cat.skills.map((skill, si) => (
-                    <div key={skill.name} style={styles.skillRow}>
-                      <div style={styles.skillMeta}>
-                        <span style={styles.skillIcon}>{skill.icon}</span>
-                        <span style={styles.skillName}>{skill.name}</span>
-                        <span style={{ ...styles.skillPct, color: cat.color }}>{skill.level}%</span>
-                      </div>
-                      <div style={styles.barTrack}>
-                        <motion.div
-                          style={{ ...styles.barFill, background: `linear-gradient(90deg, ${cat.color}, ${cat.color}aa)` }}
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ delay: ci * 0.12 + si * 0.08 + 0.3, duration: 0.7, ease: "easeOut" }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── PROJECTS ── */}
-        <section id="projects" style={styles.section}>
-          <SectionHeader label="projects" title="Featured Projects" />
-
-          {/* Filter tabs */}
-          <div style={styles.filterRow}>
-            {FILTERS.map((f) => (
-              <button
-                key={f}
-                onClick={() => setActiveFilter(f)}
-                style={{
-                  ...styles.filterBtn,
-                  ...(activeFilter === f ? styles.filterBtnActive : {}),
-                }}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-
-          {/* Cards grid */}
-          <motion.div style={styles.grid} layout>
-            <AnimatePresence mode="popLayout">
-              {filtered.map((p, i) => (
-                <motion.div
-                  key={p.id}
-                  layout
-                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ delay: i * 0.08, duration: 0.4 }}
-                  style={{
-                    ...styles.card,
-                    ...(hoveredCard === p.id ? styles.cardHovered : {}),
-                    "--accent": p.color,
-                  }}
-                  onMouseEnter={() => setHoveredCard(p.id)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
-                  {/* top accent bar */}
-                  <div
-                    style={{
-                      ...styles.cardAccentBar,
-                      background: `linear-gradient(90deg, ${p.color}, ${p.color}88)`,
-                    }}
-                  />
-
-                  {/* emoji badge */}
-                  <div style={{ ...styles.emojiBlock, background: p.color + "22" }}>
-                    <span style={{ fontSize: 28 }}>{p.emoji}</span>
-                  </div>
-
-                  {/* category badge */}
-                  <span
-                    style={{
-                      ...styles.categoryBadge,
-                      background: p.color + "22",
-                      color: p.color,
-                      border: `1px solid ${p.color}44`,
-                    }}
-                  >
-                    {p.category}
-                  </span>
-
-                  <h3 style={styles.cardTitle}>{p.title}</h3>
-                  <p style={styles.cardDesc}>{p.desc}</p>
-
-                  {/* tech pills */}
-                  <div style={styles.techRow}>
-                    {p.tech.map((t) => (
-                      <span key={t} style={styles.techPill}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* action buttons */}
-                  <div style={styles.cardActions}>
-                    <a
-                      href={p.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={styles.cardBtnGhost}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: 6 }}>
-                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
-                      </svg>
-                      GitHub
-                    </a>
-                    <a
-                      href={p.demo}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{ ...styles.cardBtnSolid, background: p.color }}
-                    >
-                      Live Demo ↗
-                    </a>
-                  </div>
-                </motion.div>
+      <div className="app" data-theme={theme}>
+        {/* Nav */}
+        <header className="nav">
+          <div className="nav-inner">
+            <a href="#home" className="nav-logo">
+              Rajeevni
+            </a>
+            <ul className="nav-links">
+              {NAV_LINKS.map((l) => (
+                <li key={l.id}>
+                  <a href={`#${l.id}`}>{l.label}</a>
+                </li>
               ))}
-            </AnimatePresence>
-          </motion.div>
-        </section>
+            </ul>
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+            >
+              {theme === "light" ? "🌙" : "☀️"}
+            </button>
+          </div>
+        </header>
 
-        {/* ── CONTACT ── */}
-        <section id="contact" style={styles.section}>
-          <SectionHeader label="contact" title="Get In Touch" />
-          <motion.div
-            style={styles.contactBox}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <p style={styles.contactIntro}>
-              I'm open to opportunities, collaborations, and cool projects.
-              Let's connect!
-            </p>
-            <div style={styles.contactLinks}>
-              <ContactItem icon="📧" label="urajeevni@gmail.com" href="mailto:urajeevni@gmail.com" />
-              <ContactItem icon="📱" label="0778280888" href="tel:0778280888" />
-              <ContactItem icon="🐙" label="GitHub" href="https://github.com/RajeevniUmapathisivam" />
-              <ContactItem icon="💼" label="LinkedIn" href="https://www.linkedin.com/in/rajeevni-umapathisivam" />
+        {/* Social sidebar */}
+        <aside className="hero-social" aria-label="Social links">
+          <a href="https://www.linkedin.com/in/rajeevni-umapathisivam" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <IconLinkedIn />
+          </a>
+          <a href="mailto:urajeevni@gmail.com" aria-label="Email">
+            <IconMail />
+          </a>
+          <a href="https://github.com/RajeevniUmapathisivam" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <IconGitHub />
+          </a>
+        </aside>
+
+        {/* Hero */}
+        <section id="home" className="hero">
+          <div className="container hero-grid">
+            <div>
+              <h1 className="hero-name">Rajeevni Umapathisivam</h1>
+              <p className="hero-role">Full Stack Developer</p>
+              <p className="hero-desc">
+                High level experience in web development, full-stack applications,
+                and building scalable solutions with modern technologies.
+              </p>
+              <a href="#contact" className="btn-teal">
+                Contact Me <IconSend />
+              </a>
             </div>
-          </motion.div>
+            <div className="hero-visual">
+              <div className="hero-blob">
+                <div className="hero-blob-bg" />
+                <img
+                  className="hero-photo"
+                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rajeevni&backgroundColor=b6e3f4"
+                  alt="Rajeevni Umapathisivam"
+                />
+              </div>
+            </div>
+          </div>
         </section>
 
-        {/* ── FOOTER ── */}
-        <footer style={styles.footer}>
-          <p>© 2024 Rajeevni Umapathisivam · Built with React &amp; ❤️</p>
+        {/* About */}
+        <section id="about" className="section">
+          <div className="container">
+            <div className="section-header">
+              <h2 className="section-title">About Me</h2>
+              <p className="section-subtitle">My introduction</p>
+            </div>
+            <div className="about-grid">
+              <div className="about-image-wrap">
+                <img
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop"
+                  alt="Developer workspace"
+                />
+              </div>
+              <div>
+                <p className="about-text">
+                  I am an enthusiastic IT undergraduate focused on full-stack development,
+                  system design, and building real-world scalable applications. I love turning
+                  complex problems into elegant, user-friendly experiences through clean code
+                  and thoughtful UI.
+                </p>
+                <div className="about-stats">
+                  <div className="stat-card">
+                    <span className="stat-value">3+</span>
+                    <span className="stat-label">Years of experience</span>
+                  </div>
+                  <div className="stat-card">
+                    <span className="stat-value">4+</span>
+                    <span className="stat-label">Completed projects</span>
+                  </div>
+                  <div className="stat-card">
+                    <span className="stat-value">12+</span>
+                    <span className="stat-label">Technologies</span>
+                  </div>
+                </div>
+                <a href="/cv.pdf" className="btn-teal">
+                  Download CV <IconDownload />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Skills */}
+        <section id="skills" className="section" style={{ background: "var(--bg-alt)" }}>
+          <div className="container">
+            <div className="section-header">
+              <h2 className="section-title">Skills</h2>
+              <p className="section-subtitle">My technical level</p>
+            </div>
+            <div className="skills-grid">
+              {skillCategories.map((cat) => (
+                <div
+                  key={cat.id}
+                  className={`accordion ${openSkill === cat.id ? "open" : ""}`}
+                >
+                  <button
+                    type="button"
+                    className="accordion-header"
+                    onClick={() => setOpenSkill(openSkill === cat.id ? "" : cat.id)}
+                  >
+                    <AccordionIcon type={cat.id} />
+                    {cat.label}
+                    <span className="accordion-chevron">▼</span>
+                  </button>
+                  {openSkill === cat.id && (
+                    <div className="accordion-body">
+                      {cat.skills.map((s) => (
+                        <div key={s.name} className="skill-bar-row">
+                          <div className="skill-bar-meta">
+                            <span>{s.name}</span>
+                            <span>{s.level}%</span>
+                          </div>
+                          <div className="skill-bar-track">
+                            <div
+                              className="skill-bar-fill"
+                              style={{ width: `${s.level}%` }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Experience */}
+        <section id="experience" className="section">
+          <div className="container">
+            <div className="section-header">
+              <h2 className="section-title">Experience</h2>
+              <p className="section-subtitle">Professional journey</p>
+            </div>
+            <div className="exp-tabs">
+              <button
+                type="button"
+                className={`exp-tab ${expTab === "education" ? "active" : ""}`}
+                onClick={() => setExpTab("education")}
+              >
+                🎓 Education
+              </button>
+              <button
+                type="button"
+                className={`exp-tab ${expTab === "work" ? "active" : ""}`}
+                onClick={() => setExpTab("work")}
+              >
+                💼 Work
+              </button>
+            </div>
+            <div className="timeline">
+              {timeline.map((item, i) => (
+                <div key={`${item.title}-${i}`} className="timeline-item">
+                  <span className="timeline-dot" />
+                  <h3 className="timeline-title">{item.title}</h3>
+                  <p className="timeline-org">{item.org}</p>
+                  <p className="timeline-date">{item.date}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Projects (Articles-style carousel) */}
+        <section id="projects" className="section" style={{ background: "var(--bg-alt)" }}>
+          <div className="container">
+            <div className="section-header">
+              <h2 className="section-title">Projects</h2>
+              <p className="section-subtitle">Most recent work</p>
+            </div>
+            <div className="projects-carousel">
+              <button
+                type="button"
+                className="carousel-btn"
+                onClick={() =>
+                  setProjectIndex((i) => (i === 0 ? projects.length - 1 : i - 1))
+                }
+                aria-label="Previous project"
+              >
+                ‹
+              </button>
+              <div className="project-slide">
+                <div className="project-thumb">{currentProject.emoji}</div>
+                <div>
+                  <h3 className="project-slide-title">{currentProject.title}</h3>
+                  <p className="project-slide-meta">{currentProject.meta}</p>
+                  <a
+                    href={currentProject.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-teal"
+                  >
+                    View on GitHub →
+                  </a>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="carousel-btn"
+                onClick={() =>
+                  setProjectIndex((i) => (i === projects.length - 1 ? 0 : i + 1))
+                }
+                aria-label="Next project"
+              >
+                ›
+              </button>
+            </div>
+            <div className="carousel-dots">
+              {projects.map((p, i) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  className={`carousel-dot ${i === projectIndex ? "active" : ""}`}
+                  onClick={() => setProjectIndex(i)}
+                  aria-label={`Go to project ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section id="contact" className="section">
+          <div className="container">
+            <div className="section-header">
+              <h2 className="section-title">Contact</h2>
+              <p className="section-subtitle">Get in touch</p>
+            </div>
+            <div className="contact-info-row">
+              <div className="contact-info-item">
+                <IconLocation />
+                <span>Sri Lanka</span>
+              </div>
+              <div className="contact-info-item">
+                <IconPhone />
+                <a href="tel:0778280888">077 828 0888</a>
+              </div>
+              <div className="contact-info-item">
+                <IconMail />
+                <a href="mailto:urajeevni@gmail.com">urajeevni@gmail.com</a>
+              </div>
+            </div>
+            <form className="contact-form" onSubmit={handleFormSubmit}>
+              <div className="form-row">
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  required
+                  value={form.firstName}
+                  onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+                />
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  required
+                  value={form.lastName}
+                  onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                />
+              </div>
+              <input
+                type="email"
+                placeholder="Email"
+                required
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                style={{ marginBottom: "1rem" }}
+              />
+              <textarea
+                placeholder="Message"
+                required
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+              />
+              <div className="form-submit-wrap">
+                <button type="submit" className="btn-teal">
+                  Send Message <IconSend />
+                </button>
+              </div>
+              {formSent && (
+                <p className="form-success">Your email client will open to send the message.</p>
+              )}
+            </form>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="footer">
+          <div className="container">
+            <div className="footer-grid">
+              <div>
+                <p className="footer-name">Rajeevni</p>
+                <p className="footer-role">Full Stack Developer</p>
+              </div>
+              <div className="footer-links">
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact Me</a>
+              </div>
+              <div className="footer-social">
+                <a href="https://www.linkedin.com/in/rajeevni-umapathisivam" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                  <IconLinkedIn />
+                </a>
+                <a href="https://github.com/RajeevniUmapathisivam" target="_blank" rel="noreferrer" aria-label="GitHub">
+                  <IconGitHub />
+                </a>
+                <a href="mailto:urajeevni@gmail.com" aria-label="Email">
+                  <IconMail />
+                </a>
+              </div>
+            </div>
+            <p className="footer-copy">
+              © {new Date().getFullYear()} Rajeevni Umapathisivam. All rights reserved.
+            </p>
+          </div>
         </footer>
       </div>
     </>
   );
 }
-
-/* ── HELPERS ── */
-function SectionHeader({ label, title }) {
-  return (
-    <motion.div
-      style={styles.sectionHeader}
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-    >
-      <span style={styles.sectionLabel}>{label}</span>
-      <h2 style={styles.sectionTitle}>{title}</h2>
-      <div style={styles.sectionLine} />
-    </motion.div>
-  );
-}
-
-function ContactItem({ icon, label, href }) {
-  return (
-    <motion.a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      style={styles.contactItem}
-      whileHover={{ scale: 1.04, background: "#1e1e2e" }}
-    >
-      <span style={{ fontSize: 20 }}>{icon}</span>
-      <span>{label}</span>
-    </motion.a>
-  );
-}
-
-/* ─────────── STYLES ─────────── */
-const styles = {
-  page: {
-    fontFamily: "'Inter', sans-serif",
-    backgroundColor: "#080812",
-    color: "#e2e8f0",
-    minHeight: "100vh",
-    overflowX: "hidden",
-  },
-
-  /* NAV */
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "18px 60px",
-    position: "sticky",
-    top: 0,
-    zIndex: 100,
-    background: "rgba(8,8,18,0.85)",
-    backdropFilter: "blur(16px)",
-    borderBottom: "1px solid rgba(255,255,255,0.06)",
-  },
-  logo: {
-    margin: 0,
-    fontSize: 20,
-    fontWeight: 700,
-    color: "#e2e8f0",
-    letterSpacing: "-0.5px",
-  },
-  logoAccent: { color: "#6366f1" },
-  navLinks: { display: "flex", gap: 32 },
-  navLink: {
-    color: "#94a3b8",
-    textDecoration: "none",
-    fontSize: 14,
-    fontWeight: 500,
-    transition: "color 0.2s",
-  },
-
-  /* HERO */
-  hero: {
-    textAlign: "center",
-    padding: "110px 20px 80px",
-    position: "relative",
-    overflow: "hidden",
-  },
-  orb: {
-    position: "absolute",
-    width: 350,
-    height: 350,
-    borderRadius: "50%",
-    pointerEvents: "none",
-    zIndex: 0,
-    filter: "blur(60px)",
-  },
-  avatarWrapper: { position: "relative", display: "inline-block", marginBottom: 24 },
-  avatarRing: {
-    position: "absolute",
-    inset: -4,
-    borderRadius: "50%",
-    background: "linear-gradient(135deg, #6366f1, #10b981, #f59e0b)",
-    zIndex: -1,
-    animation: "spin 6s linear infinite",
-  },
-  avatar: {
-    width: 110,
-    height: 110,
-    borderRadius: "50%",
-    border: "4px solid #080812",
-    display: "block",
-    background: "#1e1e2e",
-  },
-  title: {
-    fontSize: "clamp(28px, 5vw, 52px)",
-    fontWeight: 800,
-    margin: "0 0 12px",
-    background: "linear-gradient(135deg, #e2e8f0 30%, #6366f1)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    letterSpacing: "-1px",
-  },
-  subtitle: {
-    color: "#64748b",
-    fontSize: 16,
-    fontWeight: 500,
-    marginBottom: 16,
-  },
-  desc: {
-    maxWidth: 560,
-    margin: "0 auto 28px",
-    color: "#94a3b8",
-    fontSize: 15,
-    lineHeight: 1.7,
-  },
-  buttons: { display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" },
-  btnPrimary: {
-    padding: "12px 28px",
-    background: "linear-gradient(135deg, #6366f1, #818cf8)",
-    color: "#fff",
-    borderRadius: 10,
-    textDecoration: "none",
-    fontWeight: 600,
-    fontSize: 14,
-    boxShadow: "0 0 24px #6366f155",
-    transition: "transform 0.2s, box-shadow 0.2s",
-  },
-  btnSecondary: {
-    padding: "12px 28px",
-    border: "1px solid #6366f166",
-    color: "#818cf8",
-    borderRadius: 10,
-    textDecoration: "none",
-    fontWeight: 600,
-    fontSize: 14,
-    transition: "border-color 0.2s, background 0.2s",
-  },
-
-  /* SECTIONS */
-  section: {
-    maxWidth: 1100,
-    margin: "0 auto",
-    padding: "70px 40px",
-  },
-  sectionHeader: { marginBottom: 40 },
-  sectionLabel: {
-    fontSize: 11,
-    fontWeight: 700,
-    letterSpacing: 3,
-    textTransform: "uppercase",
-    color: "#6366f1",
-    display: "block",
-    marginBottom: 6,
-  },
-  sectionTitle: {
-    fontSize: "clamp(22px, 3vw, 36px)",
-    fontWeight: 800,
-    margin: "0 0 14px",
-    letterSpacing: "-0.5px",
-  },
-  sectionLine: {
-    width: 48,
-    height: 3,
-    borderRadius: 99,
-    background: "linear-gradient(90deg, #6366f1, #10b981)",
-  },
-
-  /* ABOUT */
-  aboutText: {
-    color: "#94a3b8",
-    fontSize: 16,
-    lineHeight: 1.9,
-    maxWidth: 680,
-  },
-
-  /* SKILLS */
-  skills: { display: "flex", flexWrap: "wrap", gap: 10, marginTop: 8 },
-  skill: {
-    padding: "8px 16px",
-    background: "rgba(255,255,255,0.04)",
-    border: "1px solid transparent",
-    borderRadius: 99,
-    fontSize: 13,
-    fontWeight: 500,
-    color: "#cbd5e1",
-    cursor: "default",
-    transition: "border-color 0.2s, transform 0.2s",
-  },
-
-  /* PROJECT FILTERS */
-  filterRow: {
-    display: "flex",
-    gap: 8,
-    marginBottom: 32,
-    flexWrap: "wrap",
-  },
-  filterBtn: {
-    padding: "8px 20px",
-    background: "rgba(255,255,255,0.04)",
-    border: "1px solid rgba(255,255,255,0.08)",
-    borderRadius: 99,
-    color: "#94a3b8",
-    cursor: "pointer",
-    fontSize: 13,
-    fontWeight: 500,
-    transition: "all 0.2s",
-  },
-  filterBtnActive: {
-    background: "linear-gradient(135deg, #6366f1, #818cf8)",
-    border: "1px solid transparent",
-    color: "#fff",
-    boxShadow: "0 0 16px #6366f144",
-  },
-
-  /* PROJECT GRID */
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))",
-    gap: 24,
-  },
-
-  /* PROJECT CARD */
-  card: {
-    position: "relative",
-    background: "rgba(255,255,255,0.03)",
-    border: "1px solid rgba(255,255,255,0.07)",
-    borderRadius: 20,
-    padding: "28px 24px 24px",
-    overflow: "hidden",
-    cursor: "default",
-    transition: "border-color 0.3s, box-shadow 0.3s, transform 0.3s",
-    backdropFilter: "blur(10px)",
-  },
-  cardHovered: {
-    borderColor: "rgba(99,102,241,0.4)",
-    boxShadow: "0 20px 60px rgba(99,102,241,0.15)",
-    transform: "translateY(-6px)",
-  },
-  cardAccentBar: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 3,
-    borderRadius: "20px 20px 0 0",
-  },
-  emojiBlock: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 52,
-    height: 52,
-    borderRadius: 14,
-    marginBottom: 14,
-  },
-  categoryBadge: {
-    display: "inline-block",
-    padding: "3px 10px",
-    borderRadius: 99,
-    fontSize: 11,
-    fontWeight: 700,
-    letterSpacing: 0.5,
-    marginBottom: 12,
-    textTransform: "uppercase",
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: 700,
-    margin: "0 0 10px",
-    color: "#e2e8f0",
-  },
-  cardDesc: {
-    fontSize: 14,
-    color: "#94a3b8",
-    lineHeight: 1.7,
-    margin: "0 0 18px",
-  },
-  techRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 20 },
-  techPill: {
-    padding: "4px 10px",
-    background: "rgba(255,255,255,0.06)",
-    borderRadius: 6,
-    fontSize: 11,
-    fontWeight: 600,
-    color: "#cbd5e1",
-    letterSpacing: 0.3,
-  },
-  cardActions: { display: "flex", gap: 10, alignItems: "center" },
-  cardBtnGhost: {
-    display: "inline-flex",
-    alignItems: "center",
-    padding: "8px 14px",
-    borderRadius: 8,
-    border: "1px solid rgba(255,255,255,0.12)",
-    color: "#94a3b8",
-    textDecoration: "none",
-    fontSize: 13,
-    fontWeight: 500,
-    transition: "border-color 0.2s, color 0.2s",
-  },
-  cardBtnSolid: {
-    display: "inline-flex",
-    alignItems: "center",
-    padding: "8px 16px",
-    borderRadius: 8,
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: 13,
-    fontWeight: 600,
-    boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
-    transition: "opacity 0.2s, transform 0.2s",
-  },
-
-  /* CONTACT */
-  contactBox: {
-    background: "rgba(255,255,255,0.03)",
-    border: "1px solid rgba(255,255,255,0.07)",
-    borderRadius: 20,
-    padding: "40px",
-    backdropFilter: "blur(10px)",
-  },
-  contactIntro: {
-    color: "#94a3b8",
-    fontSize: 16,
-    marginBottom: 28,
-    lineHeight: 1.7,
-  },
-  contactLinks: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-    gap: 12,
-  },
-  contactItem: {
-    display: "flex",
-    alignItems: "center",
-    gap: 12,
-    padding: "14px 18px",
-    borderRadius: 12,
-    border: "1px solid rgba(255,255,255,0.07)",
-    color: "#cbd5e1",
-    textDecoration: "none",
-    fontSize: 14,
-    fontWeight: 500,
-    background: "rgba(255,255,255,0.02)",
-    transition: "all 0.2s",
-  },
-
-  /* FOOTER */
-  footer: {
-    textAlign: "center",
-    padding: "24px",
-    color: "#334155",
-    fontSize: 13,
-    borderTop: "1px solid rgba(255,255,255,0.05)",
-  },
-
-  /* SKILL CATEGORIES */
-  skillCategories: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-    gap: 20,
-    marginTop: 8,
-  },
-  skillCatCard: {
-    background: "rgba(255,255,255,0.03)",
-    border: "1px solid",
-    borderRadius: 20,
-    padding: "24px",
-    backdropFilter: "blur(12px)",
-    transition: "box-shadow 0.3s",
-  },
-  catHeader: {
-    display: "flex",
-    alignItems: "center",
-    gap: 12,
-    marginBottom: 20,
-  },
-  catIcon: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    fontSize: 20,
-  },
-  catLabel: {
-    fontWeight: 700,
-    fontSize: 15,
-    letterSpacing: "-0.3px",
-  },
-  skillList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 14,
-  },
-  skillRow: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 6,
-  },
-  skillMeta: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-  },
-  skillIcon: {
-    fontSize: 15,
-    lineHeight: 1,
-  },
-  skillName: {
-    flex: 1,
-    fontSize: 13,
-    fontWeight: 500,
-    color: "#cbd5e1",
-  },
-  skillPct: {
-    fontSize: 12,
-    fontWeight: 700,
-    letterSpacing: "0.5px",
-  },
-  barTrack: {
-    height: 5,
-    borderRadius: 99,
-    background: "rgba(255,255,255,0.07)",
-    overflow: "hidden",
-  },
-  barFill: {
-    height: "100%",
-    borderRadius: 99,
-  },
-};
