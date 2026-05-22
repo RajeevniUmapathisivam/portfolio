@@ -272,9 +272,7 @@
   padding-top: var(--nav-height);
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
-  text-align: center;
 }
 
 .hero-social {
@@ -304,22 +302,31 @@
   border-color: var(--purple);
 }
 
-.hero-center {
-  max-width: 640px;
-  padding: 2rem 24px 4rem;
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3rem;
+  align-items: center;
+  width: 100%;
+  padding: 3rem 0 4rem;
+}
+
+.hero-content {
+  text-align: left;
 }
 
 .hero-greeting {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: var(--text-muted);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .hero-name {
-  font-size: clamp(2rem, 6vw, 3.25rem);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
   font-weight: 800;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--text), var(--purple-light));
+  margin-bottom: 1.25rem;
+  line-height: 1.15;
+  background: linear-gradient(135deg, var(--text) 20%, var(--purple-light));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -327,56 +334,94 @@
 
 .hero-desc {
   color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  max-width: 480px;
-  margin: 0 auto 1.75rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 0 2rem;
 }
 
 .hero-btns {
   display: flex;
   gap: 1rem;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 2.5rem;
 }
 
-.hero-arch-wrap {
-  position: relative;
+/* Profile — right side, rounded card style */
+.hero-profile {
   display: flex;
-  justify-content: center;
-  margin-top: 1rem;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-.hero-arch-glow {
+.hero-profile-card {
+  position: relative;
+  width: min(100%, 340px);
+}
+
+.hero-profile-accent {
   position: absolute;
-  width: 280px;
-  height: 320px;
-  background: var(--purple-glow);
-  border-radius: 50%;
-  filter: blur(40px);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: -12px -12px 12px 12px;
+  border: 2px solid var(--purple);
+  border-radius: 28px;
+  opacity: 0.35;
+  z-index: 0;
 }
 
-.hero-arch {
-  width: 260px;
-  height: 300px;
-  border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
-  overflow: hidden;
-  border: 3px solid var(--purple);
-  box-shadow: 0 0 40px var(--purple-glow);
+.hero-profile-inner {
   position: relative;
   z-index: 1;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  max-height: 460px;
   background: var(--bg-card);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(124, 77, 255, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
-.hero-arch-img {
+.hero-profile-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 55%,
+    rgba(15, 15, 26, 0.85) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-profile-inner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.hero-profile-card:hover .hero-profile-inner img {
+  transform: scale(1.03);
+}
+
+.hero-profile-badge {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 0.5rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(124, 77, 255, 0.9);
+  border-radius: 99px;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px var(--purple-glow);
 }
 
 .hero-scroll {
@@ -850,6 +895,35 @@
 @media (max-width: 900px) {
   .hero-social,
   .hero-scroll { display: none; }
+
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-content {
+    text-align: center;
+    order: 1;
+  }
+
+  .hero-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-btns {
+    justify-content: center;
+  }
+
+  .hero-profile {
+    justify-content: center;
+    order: 0;
+  }
+
+  .hero-profile-card {
+    width: min(100%, 280px);
+  }
 
   .about-grid {
     grid-template-columns: 1fr;

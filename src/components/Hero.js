@@ -19,26 +19,31 @@ export default function Hero() {
         </a>
       </aside>
 
-      <div className="hero-center">
-        <p className="hero-greeting">
-          Hello, I&apos;m <span className="text-purple">{SITE.shortName}</span>
-        </p>
-        <h1 className="hero-name">{SITE.role}</h1>
-        <p className="hero-desc">{SITE.tagline}</p>
+      <div className="container hero-layout">
+        <div className="hero-content">
+          <p className="hero-greeting">
+            Hello, I&apos;m <span className="text-purple">{SITE.shortName}</span>
+          </p>
+          <h1 className="hero-name">{SITE.role}</h1>
+          <p className="hero-desc">{SITE.tagline}</p>
 
-        <div className="hero-btns">
-          <a href={CV_URL} className="btn-outline" download="Rajeevni-CV.pdf">
-            <IconDownload /> Download CV
-          </a>
-          <a href="#about" className="btn-primary">
-            About me
-          </a>
+          <div className="hero-btns">
+            <a href={CV_URL} className="btn-outline" download="Rajeevni-CV.pdf">
+              <IconDownload /> Download CV
+            </a>
+            <a href="#about" className="btn-primary">
+              About me
+            </a>
+          </div>
         </div>
 
-        <div className="hero-arch-wrap">
-          <div className="hero-arch-glow" />
-          <div className="hero-arch">
-            <img src={PROFILE_IMAGE} alt={SITE.name} className="hero-arch-img" />
+        <div className="hero-profile">
+          <div className="hero-profile-card">
+            <div className="hero-profile-accent" aria-hidden="true" />
+            <div className="hero-profile-inner">
+              <img src={PROFILE_IMAGE} alt={SITE.name} />
+            </div>
+            <span className="hero-profile-badge">Open to opportunities</span>
           </div>
         </div>
       </div>
