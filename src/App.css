@@ -255,6 +255,7 @@
   width: 85%;
   height: 85%;
   object-fit: cover;
+  object-position: center top;
   border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
   margin: 7.5%;
   background: var(--teal-muted);

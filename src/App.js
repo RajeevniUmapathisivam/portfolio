@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+const PROFILE_IMAGE = `${process.env.PUBLIC_URL}/profile.jpg`;
+
 /* ─────────── DATA ─────────── */
 const NAV_LINKS = [
   { id: "home", label: "Home" },
@@ -249,7 +251,7 @@ export default function App() {
                 <div className="hero-blob-bg" />
                 <img
                   className="hero-photo"
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rajeevni&backgroundColor=b6e3f4"
+                  src={PROFILE_IMAGE}
                   alt="Rajeevni Umapathisivam"
                 />
               </div>
