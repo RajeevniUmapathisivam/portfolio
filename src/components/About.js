@@ -2,7 +2,8 @@ import { ABOUT_STATS, SITE } from "../data/portfolio";
 import { IconDownload } from "./Icons";
 
 const PROFILE_IMAGE = `${process.env.PUBLIC_URL}/profile.jpg`;
-const CV_URL = `${process.env.PUBLIC_URL}/cv.html`;
+const CV_URL = `${process.env.PUBLIC_URL}/cv.pdf`;
+const CV_FALLBACK = `${process.env.PUBLIC_URL}/cv.html`;
 
 export default function About() {
   return (
@@ -31,14 +32,14 @@ export default function About() {
                 </div>
               ))}
             </div>
-            <a
-              href={CV_URL}
-              className="btn-teal"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={CV_URL} className="btn-teal" download="Rajeevni-Umapathisivam-CV.pdf">
               Download CV <IconDownload />
             </a>
+            <p className="cv-alt-link">
+              <a href={CV_FALLBACK} target="_blank" rel="noreferrer">
+                View printable CV
+              </a>
+            </p>
           </div>
         </div>
       </div>

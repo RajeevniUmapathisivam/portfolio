@@ -361,6 +361,16 @@
   font-size: 0.95rem;
 }
 
+.cv-alt-link {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.cv-alt-link a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+
 .about-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
