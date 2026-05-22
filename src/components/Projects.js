@@ -11,8 +11,8 @@ export default function Projects() {
     <section id="projects" className="section">
       <div className="container">
         <div className="section-header">
-          <span className="section-label">My Work</span>
-          <h2 className="section-title">Recent Portfolio</h2>
+          <span className="section-label">Portfolio</span>
+          <h2 className="section-title">Recent Projects</h2>
         </div>
         <div className="project-filters">
           {PROJECT_FILTERS.map((f) => (

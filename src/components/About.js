@@ -7,8 +7,8 @@ export default function About() {
     <section id="about" className="section">
       <div className="container">
         <div className="section-header section-header-left">
-          <span className="section-label">My Intro</span>
-          <h2 className="section-title">About Me</h2>
+          <span className="section-label">About Me</span>
+          <h2 className="section-title">Professional Bio</h2>
         </div>
         <div className="about-grid">
           <div className="about-photo-wrap">
@@ -27,7 +27,13 @@ export default function About() {
                 </div>
               ))}
             </div>
-            <p className="about-text">{SITE.aboutSummary}</p>
+            <div className="about-text-block">
+              {SITE.aboutBio.map((paragraph) => (
+                <p key={paragraph.slice(0, 40)} className="about-text">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -22,9 +22,10 @@ export default function Hero() {
       <div className="container hero-layout">
         <div className="hero-content">
           <p className="hero-greeting">
-            Hello, I&apos;m <span className="text-purple">{SITE.shortName}</span>
+            Hello, I&apos;m <span className="text-purple">{SITE.name}</span>
           </p>
           <h1 className="hero-name">{SITE.role}</h1>
+          <p className="hero-subtitle">{SITE.heroSubtitle}</p>
           <p className="hero-desc">{SITE.tagline}</p>
 
           <div className="hero-btns">
@@ -43,7 +44,7 @@ export default function Hero() {
             <div className="hero-profile-inner">
               <img src={PROFILE_IMAGE} alt={SITE.name} />
             </div>
-            <span className="hero-profile-badge">Open to opportunities</span>
+            <span className="hero-profile-badge">Available for internships</span>
           </div>
         </div>
       </div>

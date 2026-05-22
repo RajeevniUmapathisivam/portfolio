@@ -29,7 +29,7 @@ export default function Footer() {
         </div>
       </div>
       <p className="footer-copy">
-        © {new Date().getFullYear()} {SITE.name}
+        {SITE.name} · {SITE.role} · {new Date().getFullYear()}
       </p>
     </footer>
   );
