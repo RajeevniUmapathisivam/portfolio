@@ -5,20 +5,17 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Services from "./components/Services";
 import Skills from "./components/Skills";
-import Experience from "./components/Experience";
+import Education from "./components/Education";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import BackToTop from "./components/BackToTop";
 
 export default function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-      />
       <a href="#home" className="skip-link">
         Skip to main content
       </a>
@@ -31,11 +28,12 @@ export default function App() {
           <About />
           <Services />
           <Skills />
-          <Experience />
+          <Education />
           <Projects />
           <Contact />
         </main>
         <Footer />
+        <BackToTop />
       </div>
     </>
   );

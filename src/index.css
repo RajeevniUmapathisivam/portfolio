@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", -apple-system, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   background: #0f0f1a;
   color: #f4f4f8;

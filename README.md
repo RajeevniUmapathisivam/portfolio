@@ -1,40 +1,43 @@
 # Rajeevni Umapathisivam — Portfolio
 
-Personal portfolio built with **React** and deployed on **GitHub Pages**.
+Personal portfolio for **Rajeevni Umapathisivam**, a final-year BSc IT student and full stack developer.
 
-**Live site:** [https://RajeevniUmapathisivam.github.io/portfolio](https://RajeevniUmapathisivam.github.io/portfolio)
+**Live site:** [rajeevniumapathisivam.github.io/portfolio](https://rajeevniumapathisivam.github.io/portfolio)
 
-## Features
+## Stack
 
-- Responsive layout with mobile navigation
-- Light / dark mode (saved in browser)
-- Skills accordions, experience timeline, project carousel
-- Contact form via [FormSubmit](https://formsubmit.co)
-- Printable CV at `/cv.html`
+- React (Create React App)
+- Framer Motion (scroll animations)
+- CSS custom properties (dark / light theme)
+- GitHub Pages deployment
 
-## Scripts
+## Run locally
 
 ```bash
 npm install
-npm start          # http://localhost:3000
-npm run build      # production build
-npm run deploy     # publish to gh-pages branch
+npm start
 ```
 
-## Customize
+## Deploy
 
-Edit content in `src/data/portfolio.js` (projects, education, contact info).
+```bash
+npm run build
+npm run deploy
+```
 
-Replace `public/profile.jpg` with a high-resolution photo (800×800+ recommended).
+Pushes the production build to the `gh-pages` branch for GitHub Pages.
 
-Update `public/cv.html` or export your own PDF and link it from the About section.
+### Add live demos for projects
 
-## Optional: custom domain
+Deploy backends/frontends to [Vercel](https://vercel.com) or [Render](https://render.com), then set each project's `demo` URL in `src/data/portfolio.js`.
 
-In GitHub repo **Settings → Pages**, add your domain and a `CNAME` file in `public/`.
+## Project structure
+
+- `src/data/portfolio.js` — site copy, projects, skills, links
+- `src/components/` — UI sections
+- `public/` — static assets, CV, sitemap
 
 ## Contact
 
 - Email: urajeevni@gmail.com
-- LinkedIn: [rajeevni-umapathisivam](https://www.linkedin.com/in/rajeevni-umapathisivam)
-- GitHub: [RajeevniUmapathisivam](https://github.com/RajeevniUmapathisivam)
+- GitHub: [@RajeevniUmapathisivam](https://github.com/RajeevniUmapathisivam)
