@@ -1,3 +1,4 @@
+import { MotionConfig } from "framer-motion";
 import "./App.css";
 import { useTheme } from "./hooks/useTheme";
 import Navbar from "./components/Navbar";
@@ -15,7 +16,7 @@ export default function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <a href="#home" className="skip-link">
         Skip to main content
       </a>
@@ -35,6 +36,6 @@ export default function App() {
         <Footer />
         <BackToTop />
       </div>
-    </>
+    </MotionConfig>
   );
 }

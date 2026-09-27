@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useMotionValue, useSpring } from "framer-motion";
 import { SITE } from "../data/portfolio";
 import { fadeRight, fadeUp, stagger, staggerFast } from "../utils/motion";
 import { IconLinkedIn, IconGitHub, IconMail, IconDownload } from "./Icons";
@@ -10,6 +10,19 @@ const TECH_STACK = ["React", "Node.js", "MongoDB", "MySQL", "REST APIs"];
 
 export default function Hero() {
   const reduced = useReducedMotion();
+  const tiltX = useMotionValue(3);
+  const tiltY = useMotionValue(-7);
+  const rotateX = useSpring(tiltX, { stiffness: 150, damping: 22 });
+  const rotateY = useSpring(tiltY, { stiffness: 150, damping: 22 });
+  const resetTilt = () => { tiltX.set(3); tiltY.set(-7); };
+  const handleTilt = (event) => {
+    if (reduced || event.pointerType !== "mouse") return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = Math.max(-0.5, Math.min(0.5, (event.clientX - bounds.left) / bounds.width - 0.5));
+    const y = Math.max(-0.5, Math.min(0.5, (event.clientY - bounds.top) / bounds.height - 0.5));
+    tiltX.set(3 - y * 16);
+    tiltY.set(-7 + x * 20);
+  };
 
   return (
     <section id="home" className="hero">
@@ -89,19 +102,31 @@ export default function Hero() {
           animate="visible"
           transition={{ delay: 0.15 }}
         >
+          <div className="profile-stage" onPointerMove={handleTilt} onPointerLeave={resetTilt} onPointerCancel={resetTilt}>
+          <motion.div className="profile-float"
+            initial={false}
+            animate={{ y: reduced ? 0 : [0, -8, 0] }}
+            transition={{ duration: reduced ? 0 : 4, ease: "easeInOut" }}
+          >
           <motion.div
             className="hero-profile-frame"
-            whileHover={reduced ? {} : { y: -6, transition: { duration: 0.3 } }}
+            style={{ rotateX: reduced ? 0 : rotateX, rotateY: reduced ? 0 : rotateY }}
           >
-            <div className="hero-profile-glow" aria-hidden="true" />
+            <div className="profile-depth" aria-hidden="true" />
+            <div className="profile-depth profile-depth-back" aria-hidden="true" />
+            <div className="profile-card-heading" aria-hidden="true"><span>RU / DEVELOPER</span><span>PORTFOLIO</span></div>
+            <div className="profile-sheen" aria-hidden="true" />
             <div className="hero-profile-inner">
               <img src={PROFILE_IMAGE} alt={SITE.name} width={400} height={500} />
             </div>
+            <div className="profile-floating-tag" aria-hidden="true"><span>&lt;/&gt;</span> Building with purpose</div>
             <div className="hero-profile-footer">
               <span className="hero-profile-name">{SITE.shortName}</span>
               <span className="hero-profile-role">{SITE.role}</span>
             </div>
           </motion.div>
+          </motion.div>
+          </div>
         </motion.div>
       </div>
 

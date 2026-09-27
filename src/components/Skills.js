@@ -1,28 +1,19 @@
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { skillCategories, LEVEL_LABEL, LEVEL_WIDTH } from "../data/portfolio";
 import { fadeUp } from "../utils/motion";
 import { SectionHeader, Stagger } from "./Reveal";
 import { AccordionIcon } from "./Icons";
 
 function SkillBar({ skill }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
-  const reduced = useReducedMotion();
-  const width = LEVEL_WIDTH[skill.level] || 70;
-
   return (
-    <div ref={ref} className="skill-bar-row">
+    <div className="skill-bar-row">
       <div className="skill-bar-meta">
         <span>{skill.name}</span>
         <span className="skill-level-badge">{LEVEL_LABEL[skill.level] || skill.level}</span>
       </div>
-      <div className="skill-bar-track">
-        <motion.div
-          className="skill-bar-fill"
-          initial={{ width: reduced ? `${width}%` : "0%" }}
-          animate={{ width: inView || reduced ? `${width}%` : "0%" }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+      <div className="skill-bar-track" aria-hidden="true">
+        <div className="skill-bar-fill"
+          style={{ width: `${LEVEL_WIDTH[skill.level] || 55}%`, transformOrigin: "left" }}
         />
       </div>
     </div>

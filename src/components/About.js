@@ -9,7 +9,7 @@ export default function About() {
   return (
     <section id="about" className="section">
       <div className="container">
-        <SectionHeader label="About Me" title="Professional Bio" align="left" />
+        <SectionHeader label="About Me" title="Curious by nature. Driven to build." align="left" />
         <div className="about-grid">
           <motion.div
             className="about-photo-wrap"

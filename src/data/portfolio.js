@@ -3,11 +3,11 @@ export const SITE = {
   shortName: "Rajeevni",
   role: "Full Stack Developer",
   heroSubtitle:
-    "Final-year BSc IT · 4 full-stack apps shipped · Open to internships & junior roles (remote or Sri Lanka)",
+    "Final-year BSc (Hons) in IT undergraduate · University of Vavuniya",
   tagline:
     "I build fast, user-friendly web applications — from React frontends to Node.js APIs. Strongest in authentication flows, REST APIs, and turning coursework into production-style apps.",
   aboutBio: [
-    "I'm a final-year BSc IT student at the University of Vavuniya, specialising in full stack web development. Over the past two years I've built four end-to-end projects — rental marketplaces, gate-pass systems, and registration portals — using React, Node.js, Express, MongoDB, and MySQL.",
+    "I'm a final-year BSc (Hons) in IT student at the University of Vavuniya, specialising in full stack web development. Over the past two years I've built four end-to-end projects — rental marketplaces, gate-pass systems, and registration portals — using React, Node.js, Express, MongoDB, and MySQL.",
     "On team projects I typically own API design, database schema, and integration; on solo work I deliver the full stack. I'm currently seeking internship and junior developer roles — remote or on-site in Sri Lanka.",
   ],
   email: "urajeevni@gmail.com",
@@ -17,10 +17,10 @@ export const SITE = {
   github: "https://github.com/RajeevniUmapathisivam",
   liveUrl: "https://rajeevniumapathisivam.github.io/portfolio",
   cvPdf: "cv.pdf",
-  profileImage: "profile.jpg",
+  profileImage: "rajeevni.jpeg",
   aboutImage: "about.jpg",
   contactIntro:
-    "Have a project in mind or a role you think I'd be a great fit for? I'd love to hear from you. I'm open to internships, junior developer positions, and freelance web development projects — remote or on-site. Expect a reply within 24 hours.",
+    "Have a project in mind or a role you think I'd be a great fit for? I'd love to hear from you. I'm open to internships, junior developer positions, and freelance web development projects — remote or on-site. Let us connect and explore how I can contribute.",
 };
 
 export const NAV_LINKS = [
@@ -34,9 +34,9 @@ export const NAV_LINKS = [
 ];
 
 export const ABOUT_STATS = [
-  { icon: "💼", value: "4", label: "Shipped projects", sub: "Academic & personal" },
+  { icon: "💼", value: "4", label: "Full-stack projects", sub: "Academic & personal" },
   { icon: "✓", value: "Now", label: "Available", sub: "Remote & on-site" },
-  { icon: "🎓", value: "BSc IT", label: "University of Vavuniya", sub: "Final-year student" },
+  { icon: "🎓", value: "BSc (Hons) in IT", label: "University of Vavuniya", sub: "Final-year student" },
 ];
 
 export const services = [
@@ -116,25 +116,40 @@ export const LEVEL_LABEL = {
 
 export const education = [
   {
-    title: "BSc. in Information Technology",
+    title: "Final-year IT undergraduate",
     org: "University of Vavuniya, Sri Lanka",
-    date: "2023-09",
-    dateLabel: "Sept 2023 — Present",
-    detail: "Final year · Full stack web development · Coursework in software engineering, databases, and web systems",
+    date: "2026",
+    dateLabel: "2026",
+    detail: "BSc (Hons) in IT · Seeking internship and junior developer opportunities.",
+    current: true,
   },
   {
-    title: "G.C.E. Advanced Level — Physical Science",
+    title: "Developing full-stack applications",
+    org: "University of Vavuniya, Sri Lanka",
+    date: "2025",
+    dateLabel: "2025",
+    detail: "Continued BSc (Hons) in IT studies with a focus on full-stack development. Applied React, Node.js, Express, and databases to academic and personal projects, building experience with REST APIs, authentication, and team collaboration.",
+  },
+  {
+    title: "Building a foundation in IT",
+    org: "University of Vavuniya, Sri Lanka",
+    date: "2024",
+    dateLabel: "2024",
+    detail: "Developed a foundation in programming, web development, and database concepts through undergraduate coursework. Practised HTML, CSS, and JavaScript while learning to turn requirements into structured, working applications.",
+  },
+  {
+    title: "Started BSc (Hons) in IT",
+    org: "University of Vavuniya, Sri Lanka",
+    date: "2023-09",
+    dateLabel: "2023",
+    detail: "Began undergraduate studies in September 2023.",
+  },
+  {
+    title: "G.C.E. Advanced Level",
     org: "Physical Science stream",
     date: "2021",
     dateLabel: "2021",
     detail: "Combined Mathematics, Physics, Chemistry",
-  },
-  {
-    title: "G.C.E. Ordinary Level",
-    org: "Secondary education",
-    date: "2018",
-    dateLabel: "2018",
-    detail: "Foundation for Advanced Level studies",
   },
 ];
 

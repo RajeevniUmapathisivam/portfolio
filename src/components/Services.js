@@ -1,3 +1,4 @@
+import { AccordionIcon } from "./Icons";
 import { motion } from "framer-motion";
 import { services } from "../data/portfolio";
 import { fadeUp } from "../utils/motion";
@@ -9,14 +10,14 @@ export default function Services() {
       <div className="container">
         <SectionHeader label="What I Do" title="Focus Areas" />
         <Stagger className="services-grid">
-          {services.map((s) => (
+          {services.map((s, index) => (
             <motion.article
               key={s.title}
               className="service-card"
               variants={fadeUp}
-              whileHover={{ y: -8, transition: { duration: 0.25 } }}
+
             >
-              <span className="service-icon">{s.icon}</span>
+              <span className="service-icon"><AccordionIcon type={["frontend", "backend", "tools"][index]} /></span>
               <h3>{s.title}</h3>
               <p>{s.desc}</p>
             </motion.article>

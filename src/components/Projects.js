@@ -19,7 +19,7 @@ export default function Projects() {
   return (
     <section id="projects" className="section">
       <div className="container">
-        <SectionHeader label="Portfolio" title="Recent Projects" />
+        <SectionHeader label="Portfolio" title="Putting ideas into practice" />
         <div className="project-filters">
           {PROJECT_FILTERS.map((f) => (
             <button
@@ -27,6 +27,7 @@ export default function Projects() {
               type="button"
               className={`filter-btn ${filter === f ? "active" : ""}`}
               onClick={() => setFilter(f)}
+              aria-pressed={filter === f}
             >
               {f}
               {filter === f && <span className="filter-btn-indicator" aria-hidden="true" />}
@@ -71,17 +72,13 @@ export default function Projects() {
                         className="btn-sm"
                         title={p.repoNote || undefined}
                       >
-                        {p.repoNote ? "GitHub (team)" : "GitHub"}
+                        {p.repoNote ? "GitHub profile" : "GitHub"}
                       </a>
                       {p.demo ? (
                         <a href={p.demo} target="_blank" rel="noreferrer" className="btn-sm btn-sm-fill">
                           Live
                         </a>
-                      ) : (
-                        <span className="btn-sm btn-sm-disabled" title="Deploy to enable live demo">
-                          Live soon
-                        </span>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </motion.article>

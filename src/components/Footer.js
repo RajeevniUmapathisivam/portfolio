@@ -1,44 +1,31 @@
-import { motion } from "framer-motion";
 import { NAV_LINKS, SITE } from "../data/portfolio";
-import { fadeUp } from "../utils/motion";
 import { IconLinkedIn, IconGitHub, IconMail } from "./Icons";
 
 export default function Footer() {
   return (
     <footer className="footer">
-      <motion.div
-        className="container footer-inner"
-        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <motion.div variants={fadeUp}>
+      <div className="footer-watermark" aria-hidden="true">{SITE.shortName}</div>
+      <div className="container footer-outro">
+        <span className="section-label">The next chapter</span>
+        <h2>Have an idea? <a href={`mailto:${SITE.email}`}>Let's build it together <span aria-hidden="true">↗</span></a></h2>
+      </div>
+      <div className="container footer-inner">
+        <div>
           <p className="footer-logo">{SITE.shortName}</p>
           <p className="footer-role">{SITE.role}</p>
-        </motion.div>
-        <motion.div className="footer-links" variants={fadeUp}>
-          {NAV_LINKS.filter((l) => l.id !== "home").map((l) => (
-            <a key={l.id} href={`#${l.id}`}>
-              {l.label}
-            </a>
+        </div>
+        <div className="footer-links">
+          {NAV_LINKS.filter((link) => link.id !== "home").map((link) => (
+            <a key={link.id} href={`#${link.id}`}>{link.label}</a>
           ))}
-        </motion.div>
-        <motion.div className="footer-social" variants={fadeUp}>
-          <a href={SITE.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
-            <IconLinkedIn />
-          </a>
-          <a href={SITE.github} target="_blank" rel="noreferrer" aria-label="GitHub">
-            <IconGitHub />
-          </a>
-          <a href={`mailto:${SITE.email}`} aria-label="Email">
-            <IconMail />
-          </a>
-        </motion.div>
-      </motion.div>
-      <p className="footer-copy">
-        {SITE.name} · {SITE.role} · {new Date().getFullYear()}
-      </p>
+        </div>
+        <div className="footer-social">
+          <a href={SITE.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><IconLinkedIn /></a>
+          <a href={SITE.github} target="_blank" rel="noreferrer" aria-label="GitHub"><IconGitHub /></a>
+          <a href={`mailto:${SITE.email}`} aria-label="Email"><IconMail /></a>
+        </div>
+      </div>
+      <p className="footer-copy">{SITE.name} · {SITE.role} · {new Date().getFullYear()}</p>
     </footer>
   );
 }

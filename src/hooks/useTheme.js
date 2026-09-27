@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const STORAGE_KEY = "portfolio-theme";
+const STORAGE_KEY = "portfolio-purple-theme";
 
 export function useTheme() {
   const [theme, setTheme] = useState(() => {

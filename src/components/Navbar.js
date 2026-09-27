@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { NAV_LINKS, SITE } from "../data/portfolio";
 import { useActiveSection } from "../hooks/useActiveSection";
@@ -9,13 +9,14 @@ export default function Navbar({ theme, onToggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const activeSection = useActiveSection();
   const reduced = useReducedMotion();
+  const toggleRef = useRef(null);
   const closeMenu = () => setMenuOpen(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+  return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -24,6 +25,23 @@ export default function Navbar({ theme, onToggleTheme }) {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+    useEffect(() => {
+    const handleKey = (event) => {
+      if (event.key === "Escape" && menuOpen) {
+        setMenuOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    const handleResize = () => { if (window.innerWidth > 800) setMenuOpen(false); };
+    window.addEventListener("keydown", handleKey);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [menuOpen]);
+
 
   return (
     <motion.header
@@ -44,11 +62,13 @@ export default function Navbar({ theme, onToggleTheme }) {
           onClick={() => setMenuOpen((o) => !o)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
+          aria-controls="main-navigation"
+          ref={toggleRef}
         >
           <span /><span /><span />
         </button>
 
-        <nav className={`nav-menu ${menuOpen ? "open" : ""}`} aria-label="Main">
+        <nav id="main-navigation" className={`nav-menu ${menuOpen ? "open" : ""}`} aria-label="Main">
           <ul className="nav-links">
             {NAV_LINKS.map((l) => (
               <li key={l.id}>

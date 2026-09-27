@@ -20,9 +20,9 @@ export default function Contact() {
 
   const validate = (form) => {
     const next = {};
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const message = form.message.value.trim();
+    const name = form.elements.namedItem("name").value.trim();
+    const email = form.elements.namedItem("email").value.trim();
+    const message = form.elements.namedItem("message").value.trim();
 
     if (!name) next.name = "Please enter your name.";
     if (!email) next.email = "Please enter your email.";

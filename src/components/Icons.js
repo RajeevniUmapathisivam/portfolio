@@ -84,15 +84,11 @@ export const IconMoon = () => (
 );
 
 export const AccordionIcon = ({ type }) => {
-  const icons = {
-    programming: "</>",
-    frontend: "⚛",
-    code: "</>",
-    server: "⚙",
-    database: "🗄",
-    tools: "🛠",
-    soft: "🤝",
-    cert: "📜",
+  const paths = {
+    frontend: 'M8 5 2 12l6 7M16 5l6 7-6 7M14 3l-4 18',
+    backend: 'M3 3h18v7H3zM3 14h18v7H3zM6 6h1M6 17h1M11 6h7M11 17h7',
+    database: 'M3 5c0-4 18-4 18 0s-18 4-18 0v14c0 4 18 4 18 0V5M3 12c0 4 18 4 18 0',
+    tools: 'm8 5-6 7 6 7M16 5l6 7-6 7',
   };
-  return <span className="accordion-icon">{icons[type] || "•"}</span>;
+  return <span className="accordion-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={paths[type] || paths.frontend} /></svg></span>;
 };
